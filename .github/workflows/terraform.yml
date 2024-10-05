@@ -1,4 +1,4 @@
-name: Terraform K3s Provisioning
+name: Terraform k8s Provisioning
 
 on:
   push:

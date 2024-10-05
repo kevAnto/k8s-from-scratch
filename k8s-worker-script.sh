@@ -12,7 +12,7 @@ apt update
 apt install docker.io -y
 systemctl status docker
 
-# curl -sfL https://get.k3s.io | K3S_URL=https://<MasterNodePublicIP>:6443 K3S_TOKEN=<NodeToken> sh -
+# curl -sfL https://get.k8s.io | k8s_URL=https://<MasterNodePublicIP>:6443 k8s_TOKEN=<NodeToken> sh -
 
 # kubectl get nodes
 
@@ -20,7 +20,7 @@ systemctl status docker
 # echo worker-node-1 > /etc/hostname
 # kubectl delete node worker-node-1
 
-# curl -sfL https://get.k3s.io | K3S_URL=https://<MasterNodePublicIP>:6443 K3S_TOKEN=<NodeToken> sh -
-# export K3S_URL=https://x.x.x.x:6443
-# K3S_TOKEN=
-# curl -sfL https://get.k3s.io |  sh -
+# curl -sfL https://get.k8s.io | k8s_URL=https://<MasterNodePublicIP>:6443 k8s_TOKEN=<NodeToken> sh -
+# export k8s_URL=https://x.x.x.x:6443
+# k8s_TOKEN=
+# curl -sfL https://get.k8s.io |  sh -
