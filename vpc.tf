@@ -65,7 +65,7 @@ resource "aws_default_security_group" "control-plane-sg" {
     from_port   = 2379
     to_port     = 2380
     protocol    = "tcp"
-    cidr_blocks = var.vpc_cidr_block
+    cidr_blocks = var.subnet_1_cidr_block
     description = "Allow etcd server client API access"
   }
 
