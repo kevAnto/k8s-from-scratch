@@ -16,7 +16,7 @@ resource "aws_instance" "k8s-Master-server" {
   instance_type               = var.instance_type
   key_name                    = "devops"
   subnet_id                   = aws_subnet.k8s-subnet-1.id
-  vpc_security_group_ids      = [aws_default_security_group.control-plane-sg.id]
+  vpc_security_group_ids      = [aws_security_group.control-plane-sg.id]
   availability_zone           = var.avail_zone
   associate_public_ip_address = true
   user_data                   = file("k8s-server-script.sh")

@@ -42,7 +42,7 @@ resource "aws_default_route_table" "main-rtb" {
   }
 }
 
-resource "aws_default_security_group" "control-plane-sg" {
+resource "aws_security_group" "control-plane-sg" {
   vpc_id = aws_vpc.k8s-vpc.id
 
   ingress {
