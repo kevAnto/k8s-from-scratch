@@ -1,5 +1,5 @@
 resource "aws_vpc" "k8s-vpc" {
-  cidr_block = var.vpc_cidr_block
+  cidr_block = [var.vpc_cidr_block]
   tags = {
     Name = "${var.env_prefix}-vpc"
   }
