@@ -1,26 +1,24 @@
 #!/bin/bash
 
-set -e
+#Passing enterings nodes names to ip maping on every nodes
+sudo swapoff -a
+# sudo vim /etc/hosts
+# 10.0.10.247 controlplane
+# 10.0.20.95 workerNode
 
-# Update and upgrade the system
-echo "Updating and upgrading the system..."
-sudo apt-get update -y
-sudo apt-get upgrade -y
+#Place your on controlplan and set for controlplan also do same for workers
+# sudo hostnamectl set-hostname controlplane
+# sudo hostnamectl set-hostname workerNode
 
-sudo su
-apt update
-apt install docker.io -y
-systemctl status docker
+#Install a container runtime
+# Enable IPv4 packet forwarding https://kubernetes.io/docs/setup/production-environment/container-runtimes/#prerequisite-ipv4-forwarding-optional
+# Install Containerd https://github.com/containerd/containerd/blob/main/docs/getting-started.md#option-2-from-apt-get-or-dnf
 
-# curl -sfL https://get.k8s.io | k8s_URL=https://<MasterNodePublicIP>:6443 k8s_TOKEN=<NodeToken> sh -
+chmod u+x ./containerd-install.sh
+service containerd status
 
-# kubectl get nodes
+#Install kubeadm, kubelet and kubectl
 
-# hostnamectl set-hostname worker-node-1
-# echo worker-node-1 > /etc/hostname
-# kubectl delete node worker-node-1
-
-# curl -sfL https://get.k8s.io | k8s_URL=https://<MasterNodePublicIP>:6443 k8s_TOKEN=<NodeToken> sh -
-# export k8s_URL=https://x.x.x.x:6443
-# k8s_TOKEN=
-# curl -sfL https://get.k8s.io |  sh -
+chmod u+x ./k8s-install.sh
+kubeadm version
+service kubelet status
