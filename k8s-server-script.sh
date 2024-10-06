@@ -16,11 +16,13 @@ sudo swapoff -a
 
 wget https://github.com/kevAnto/k8s-from-scratch/blob/main/containerd-install.sh
 chmod u+x ./containerd-install.sh
+./containerd-install.sh
 service containerd status
 
 #Install kubeadm, kubelet and kubectl
 
 wget https://github.com/kevAnto/k8s-from-scratch/blob/main/k8s-install.sh
 chmod u+x ./k8s-install.sh
+./k8s-install.sh
 kubeadm version
 service kubelet status
