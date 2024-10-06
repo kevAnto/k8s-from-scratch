@@ -93,6 +93,13 @@ resource "aws_security_group" "control-plane-sg" {
     description = "Allow kube-controller-manager access"
   }
 
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
     Name = "${var.env_prefix}-Control-Plane-SG"
   }
