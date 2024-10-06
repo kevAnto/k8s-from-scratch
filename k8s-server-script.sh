@@ -1,19 +1,26 @@
 #!/bin/bash
 
+#Passing enterings nodes names to ip maping on every nodes
 sudo swapoff -a
+# sudo vim /etc/hosts
+# 10.0.10.247 controlplane
+# 10.0.20.95 workerNode
 
-set -e
+#Place your on controlplan and set for controlplan also do same for workers
+# sudo hostnamectl set-hostname controlplane
+# sudo hostnamectl set-hostname workerNode
 
-# Update and upgrade the system
-echo "Updating and upgrading the system..."
-sudo apt-get update -y
-sudo apt-get upgrade -y
+#Install a container runtime
+# Enable IPv4 packet forwarding https://kubernetes.io/docs/setup/production-environment/container-runtimes/#prerequisite-ipv4-forwarding-optional
+# Install Containerd https://github.com/containerd/containerd/blob/main/docs/getting-started.md#option-2-from-apt-get-or-dnf
 
-sudo su
-apt update
-curl -sfL https://get.k8s.io | sh -
-apt install docker.io -y
-systemctl status k8s
-# sudo cat /var/lib/rancher/k8s/server/node-token
+wget https://github.com/kevAnto/k8s-from-scratch/blob/main/containerd-install.sh
+chmod u+x ./containerd-install.sh
+service containerd status
 
-# curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+#Install kubeadm, kubelet and kubectl
+
+wget https://github.com/kevAnto/k8s-from-scratch/blob/main/k8s-install.sh
+chmod u+x ./k8s-install.sh
+kubeadm version
+service kubelet status
