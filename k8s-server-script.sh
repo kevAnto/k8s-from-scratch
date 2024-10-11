@@ -7,7 +7,7 @@ sudo swapoff -a
 # 10.0.20.95 workerNode
 
 #Place your on controlplan and set for controlplan also do same for workers
-# sudo hostnamectl set-hostname controlplane
+sudo hostnamectl set-hostname controlplane
 # sudo hostnamectl set-hostname workerNode
 
 #Install a container runtime

@@ -28,3 +28,5 @@ chmod u+x ./k8s-install.sh
 sudo apt-mark hold kubelet kubeadm kubectl
 kubeadm version
 service kubelet status
+
+sudo hostnamectl set-hostname workernode

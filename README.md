@@ -14,5 +14,9 @@ Steps for the project
 * terraform apply
 
 Access the Kubeconfig File on the EC2 Instance
- * SSH into the EC2 Instance
+ * SSH into the EC2 Instance 
+ *    #Passing enterings nodes names to ip maping on every nodes
+      # sudo vim /etc/hosts
+      # 10.0.10.247 controlplane
+      # 10.0.20.95 workerNode
 
