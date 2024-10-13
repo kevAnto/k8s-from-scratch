@@ -152,7 +152,7 @@ resource "aws_security_group" "control-plane-sg2" {
     from_port       = -1
     to_port         = -1
     protocol        = "icmp"
-    security_groups = [aws_security_group.workers-sg.id]
+    security_groups = [aws_default_security_group.workers-sg.id]
     description     = "Allow all ICMP traffic within the workerNode security group"
   }
 
@@ -168,7 +168,7 @@ resource "aws_security_group" "control-plane-sg2" {
     from_port       = 30000
     to_port         = 32767
     protocol        = "tcp"
-    security_groups = [aws_security_group.workers-sg.id]
+    security_groups = [aws_default_security_group.workers-sg.id]
     description     = "Allow custom TCP traffic within range 30000-32767(nodePort range) from the workerNode security group"
   }
 
@@ -272,7 +272,7 @@ resource "aws_security_group" "workers-sg2" {
     from_port       = -1
     to_port         = -1
     protocol        = "icmp"
-    security_groups = [aws_security_group.workers-sg.id]
+    security_groups = [aws_default_security_group.workers-sg.id]
     description     = "Allow all ICMP traffic within the workerNode security group"
   }
 
@@ -288,7 +288,7 @@ resource "aws_security_group" "workers-sg2" {
     from_port       = 30000
     to_port         = 32767
     protocol        = "tcp"
-    security_groups = [aws_security_group.workers-sg.id]
+    security_groups = [aws_default_security_group.workers-sg.id]
     description     = "Allow custom TCP traffic within range 30000-32767(nodePort range) from the workerNode security group"
   }
 
