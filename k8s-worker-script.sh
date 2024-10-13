@@ -3,12 +3,12 @@
 #Passing enterings nodes names to ip maping on every nodes
 sudo swapoff -a
 # sudo vim /etc/hosts
-# 10.0.10.247 controlplane
-# 10.0.20.95 workerNode
+# 10.0.10.21 controlplane
+# 10.0.20.203 workernode
 
 #Place your on controlplan and set for controlplan also do same for workers
 # sudo hostnamectl set-hostname controlplane
-# sudo hostnamectl set-hostname workerNode
+sudo hostnamectl set-hostname workernode
 
 #Install a container runtime
 # Enable IPv4 packet forwarding https://kubernetes.io/docs/setup/production-environment/container-runtimes/#prerequisite-ipv4-forwarding-optional
@@ -24,8 +24,6 @@ service containerd status
 wget https://raw.githubusercontent.com/kevAnto/k8s-from-scratch/main/k8s-install.sh
 chmod u+x ./k8s-install.sh
 ./k8s-install.sh
-
-sudo hostnamectl set-hostname workernode
 
 sudo apt-mark hold kubelet kubeadm kubectl
 kubeadm version

@@ -38,3 +38,22 @@ sudo kubectl get node --kubeconfig /etc/kubernetes/admin.conf
 mkdir -p ~/.kube
 sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
 sudo chown $(id -u):$(id -g) ~/.kube/config
+
+# Install celuim (quick install cli)
+CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt)
+CLI_ARCH=amd64
+if [ "$(uname -m)" = "aarch64" ]; then CLI_ARCH=arm64; fi
+curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VERSION}/cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
+sha256sum --check cilium-linux-${CLI_ARCH}.tar.gz.sha256sum
+sudo tar xzvfC cilium-linux-${CLI_ARCH}.tar.gz /usr/local/bin
+rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
+
+cilium install --set ipam.operator.clusterPoolIPv4PodCIDRList="10.0.0.0/9"
+kubectl get node
+kubectl get po -n kube-system
+
+# cmd to get output for workernode to join cluster
+# kubeadm token create --print-join-command
+
+kubectl get po -A | grep cilium
+kubectl -n kube-system exec cilium-r9265 -- cilium-dbg status

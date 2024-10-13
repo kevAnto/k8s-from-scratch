@@ -93,6 +93,70 @@ resource "aws_security_group" "control-plane-sg" {
     description = "Allow kube-controller-manager access"
   }
 
+  ingress {
+    from_port   = 8472
+    to_port     = 8472
+    protocol    = "udp"
+    cidr_blocks = [aws_security_group.control-plane-sg.id]
+    description = "Allow cilium access from within the same security group"
+  }
+
+  ingress {
+    from_port   = 8472
+    to_port     = 8472
+    protocol    = "udp"
+    cidr_blocks = [aws_default_security_group.workers-sg.id]
+    description = "Allow cilium access from within the workerNode security group"
+  }
+
+  ingress {
+    from_port   = 4240
+    to_port     = 4240
+    protocol    = "udp"
+    cidr_blocks = [aws_security_group.control-plane-sg.id]
+    description = "Allow cilium helthcheck within the same security group"
+  }
+
+  ingress {
+    from_port   = 4240
+    to_port     = 4240
+    protocol    = "udp"
+    cidr_blocks = [aws_default_security_group.workers-sg.id]
+    description = "Allow cilium helthcheck within the workerNode security group"
+  }
+
+  ingress {
+    from_port       = -1
+    to_port         = -1
+    protocol        = "icmp"
+    security_groups = [aws_security_group.control-plane-sg.id]
+    description     = "Allow all ICMP traffic within the control-plane security group"
+  }
+
+  ingress {
+    from_port       = -1
+    to_port         = -1
+    protocol        = "icmp"
+    security_groups = [aws_security_group.workers-sg.id]
+    description     = "Allow all ICMP traffic within the workerNode security group"
+  }
+
+  ingress {
+    from_port       = 30000
+    to_port         = 32767
+    protocol        = "tcp"
+    security_groups = [aws_security_group.control-plane-sg.id]
+    description     = "Allow custom TCP traffic within range 30000-32767(nodePort range) from the control-plane security group "
+  }
+
+  ingress {
+    from_port       = 30000
+    to_port         = 32767
+    protocol        = "tcp"
+    security_groups = [aws_security_group.workers-sg.id]
+    description     = "Allow custom TCP traffic within range 30000-32767(nodePort range) from the workerNode security group"
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -134,6 +198,71 @@ resource "aws_default_security_group" "workers-sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  ingress {
+    from_port   = 8472
+    to_port     = 8472
+    protocol    = "udp"
+    cidr_blocks = [aws_security_group.control-plane-sg.id]
+    description = "Allow cilium access from within the same security group"
+  }
+
+  ingress {
+    from_port   = 8472
+    to_port     = 8472
+    protocol    = "udp"
+    cidr_blocks = [aws_default_security_group.workers-sg.id]
+    description = "Allow cilium access from within the workerNode security group"
+  }
+
+  ingress {
+    from_port   = 4240
+    to_port     = 4240
+    protocol    = "udp"
+    cidr_blocks = [aws_security_group.control-plane-sg.id]
+    description = "Allow cilium helthcheck within the same security group"
+  }
+
+  ingress {
+    from_port   = 4240
+    to_port     = 4240
+    protocol    = "udp"
+    cidr_blocks = [aws_default_security_group.workers-sg.id]
+    description = "Allow cilium helthcheck within the workerNode security group"
+  }
+
+  ingress {
+    from_port       = -1
+    to_port         = -1
+    protocol        = "icmp"
+    security_groups = [aws_security_group.control-plane-sg.id]
+    description     = "Allow all ICMP traffic within the control-plane security group"
+  }
+
+  ingress {
+    from_port       = -1
+    to_port         = -1
+    protocol        = "icmp"
+    security_groups = [aws_security_group.workers-sg.id]
+    description     = "Allow all ICMP traffic within the workerNode security group"
+  }
+
+  ingress {
+    from_port       = 30000
+    to_port         = 32767
+    protocol        = "tcp"
+    security_groups = [aws_security_group.control-plane-sg.id]
+    description     = "Allow custom TCP traffic within range 30000-32767(nodePort range) from the control-plane security group "
+  }
+
+  ingress {
+    from_port       = 30000
+    to_port         = 32767
+    protocol        = "tcp"
+    security_groups = [aws_security_group.workers-sg.id]
+    description     = "Allow custom TCP traffic within range 30000-32767(nodePort range) from the workerNode security group"
+  }
+
   egress {
     from_port   = 0
     to_port     = 0

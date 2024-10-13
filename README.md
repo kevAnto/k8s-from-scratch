@@ -20,3 +20,5 @@ Access the Kubeconfig File on the EC2 Instance
        10.0.10.247 controlplane
        10.0.20.95 workerNode
 
+https://docs.cilium.io/en/v1.14/gettingstarted/k8s-install-default/#k8s-install-quick
+
