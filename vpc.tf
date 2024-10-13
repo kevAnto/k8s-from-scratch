@@ -93,6 +93,21 @@ resource "aws_security_group" "control-plane-sg" {
     description = "Allow kube-controller-manager access"
   }
 
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.env_prefix}-Control-Plane-SG"
+  }
+}
+
+resource "aws_security_group" "control-plane-sg2" {
+  vpc_id = aws_vpc.k8s-vpc.id
+
   ingress {
     from_port   = 8472
     to_port     = 8472
@@ -165,10 +180,9 @@ resource "aws_security_group" "control-plane-sg" {
   }
 
   tags = {
-    Name = "${var.env_prefix}-Control-Plane-SG"
+    Name = "${var.env_prefix}-Control-Plane-SG2"
   }
 }
-
 
 resource "aws_default_security_group" "workers-sg" {
   vpc_id = aws_vpc.k8s-vpc.id
@@ -198,6 +212,21 @@ resource "aws_default_security_group" "workers-sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+ 
+  tags = {
+    Name = "${var.env_prefix}-workers-SG"
+  }
+}
+
+resource "aws_security_group" "workers-sg2" {
+  vpc_id = aws_vpc.k8s-vpc.id
 
   ingress {
     from_port   = 8472
@@ -271,6 +300,6 @@ resource "aws_default_security_group" "workers-sg" {
   }
  
   tags = {
-    Name = "${var.env_prefix}-workers-SG"
+    Name = "${var.env_prefix}-workers-SG2"
   }
 }
