@@ -24,6 +24,17 @@ service containerd status
 wget https://raw.githubusercontent.com/kevAnto/k8s-from-scratch/main/k8s-install.sh
 chmod u+x ./k8s-install.sh
 ./k8s-install.sh
-kubectl version
-kubelet --version
-kubeadm version
+
+# kubectl version
+# kubelet --version
+# kubeadm version
+# service kubelet status
+
+#After passing enterings nodes names to ip maping on every nodes
+sudo kubeadm init
+sudo kubectl get node --kubeconfig /etc/kubernetes/admin.conf
+#sudo -i
+#export KUBECONFIG=/etc/kubernetes/admin.conf
+mkdir -p ~/.kube
+sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
+sudo chown $(id -u):$(id -g) ~/.kube/config

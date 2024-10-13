@@ -25,8 +25,9 @@ wget https://raw.githubusercontent.com/kevAnto/k8s-from-scratch/main/k8s-install
 chmod u+x ./k8s-install.sh
 ./k8s-install.sh
 
+sudo hostnamectl set-hostname workernode
+
 sudo apt-mark hold kubelet kubeadm kubectl
 kubeadm version
 service kubelet status
 
-sudo hostnamectl set-hostname workernode
