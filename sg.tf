@@ -55,7 +55,7 @@ resource "aws_security_group" "control-plane-sg" {
     from_port   = 8472
     to_port     = 8472
     protocol    = "udp"
-    security_groups = [aws_security_group.control-plane-sg.id]
+    #security_groups = [aws_security_group.control-plane-sg.id]
     cidr_blocks = [var.subnet_1_cidr_block]
     description = "Allow cilium access from within the same security group"
   }
@@ -214,7 +214,8 @@ resource "aws_default_security_group" "workers-sg" {
     from_port       = -1
     to_port         = -1
     protocol        = "icmp"
-    security_groups = [aws_default_security_group.workers-sg.id]
+    #security_groups = [aws_default_security_group.workers-sg.id]
+    cidr_blocks = [var.subnet_2_cidr_block]
     description     = "Allow all ICMP traffic within the workerNode security group"
   }
 
